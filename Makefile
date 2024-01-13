@@ -1,5 +1,4 @@
 # Temporary makefile since I can't seem to get Raylib's official makefile to work properly.
-# WARNING: DOES NOT WORK WHEN USING MINGW ON WINDOWS OR WHEN USING CLANG/TCC
 
 CC = gcc
 ifeq (${OS}, Windows_NT)
