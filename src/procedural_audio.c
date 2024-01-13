@@ -16,6 +16,7 @@ float triangle_wave(float x)
     return intermediate < .5f ? 4 * intermediate - 1 : -4 * intermediate + 3;
 }
 
+
 /* // Unused wave functions
 
 float square_wave(float x) {
@@ -31,13 +32,9 @@ float no_wave(float x) {
 }
 */
 
-/**
- * @brief Calculates sound frequency based on the value of the array element
- * @param value A float representing the value of the array element. Should be between 0 and 1
- * @return A float represting the frequency of the sound in hertz
- */
 float frequency(float value)
 {
+    /*The strong peak at approximately 1320 Hz is the fundamental for E6 c'est pour ca on a choice 1320*/
     return 1320.0f * value;
 }
 
@@ -82,11 +79,11 @@ pthread_mutex_t sound_list_mutex = PTHREAD_ERRORCHECK_MUTEX_INITIALIZER;
  */
 void push_sound(float (*waveform)(float), float volume, float value, float duration)
 {
-    pthread_mutex_lock(&sound_list_mutex);
+    pthread_mutex_lock(&sound_list_mutex); /*lock khfif juste pour assureee que other threads dont use the same resources and avoid bugs*/
     SoundList new_item = &((struct SoundList){waveform, volume, value, duration, 0.0f, 1.0f, sound_list});
     // new item data needs to be copied over to newly allocated memory because it will be overwritten next time this code is run, causing a circular reference
     sound_list = MemAlloc(sizeof(struct SoundList));
-    memmove(sound_list, new_item, sizeof(struct SoundList));
+    memmove(sound_list, new_item, sizeof(struct SoundList));  /*moves the content of new_item to to the newly allocated memory li howa sound_list haka khir..*/
     pthread_mutex_unlock(&sound_list_mutex);
 }
 
@@ -104,7 +101,7 @@ short next_sample()
 
         if (current_item->remaining_amplitude >= 0)
         {
-            current_item->elapsed += 1.0f / SAMPLE_RATE;
+            current_item->elapsed += 1.0f / SAMPLE_RATE; //sample rate capable for example 1320hz or 44100hz ca depend wech drna 7na [dans notre cas, cest 44100!]
             previous_item = current_item;
             continue;
         }
@@ -120,11 +117,13 @@ short next_sample()
         current_item = &(struct SoundList){.next_item = sound_to_replace}; // on the next iteration i becomes sound_to_replace
     }
     pthread_mutex_unlock(&sound_list_mutex);
+    
+    //This line scales the calculated accumulated_amplitude value to a suitable range for audio sample representation, typically a 16-bit signed integer format. hka bach tkon within the audio playback system.
     return accumulated_amplitude >= 1 ? 32767 : accumulated_amplitude < -1 ? -32768
                                                                            : accumulated_amplitude * 32768.0f;
 }
 
-/** Upon audio initialization, this function will be passed into the `SetAudioStreamCallback` function */
+/** Upon audio initialization, this function will be passed into the `SetAudioStreamCallback` function, wech m3natha?: win ma ye7tage el system audio data it fills the buffer with audio samples..  cest invokee par le system audio, meaning the audio system gives it it's own paramaters.*/
 void audio_callback(void *buffer, unsigned int num_samples)
 {
     for (unsigned int i = 0; i < num_samples; i++)
@@ -137,7 +136,7 @@ AudioStream audio_stream;
 /** Initializes Raylib Sorting Visualizer's procedural audio (it is expected that InitAudioDevice is called first) */
 void initialize_procedural_audio()
 {
-    audio_stream = LoadAudioStream(SAMPLE_RATE, 16, 1);
+    audio_stream = LoadAudioStream(SAMPLE_RATE, 16, 1); //notre SAMPLE_RATE = 44100, 16:representing 16bit audio, 1: audio channel MONO
     SetAudioStreamCallback(audio_stream, audio_callback);
     PlayAudioStream(audio_stream);
 }

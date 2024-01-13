@@ -15,6 +15,22 @@
 /**
  * @brief The delay to wait every time the sorting algorithm makes an array access (in milliseconds)
  */
+float array_access_delay = 2.f;#include "raylib.h"
+#include <pthread.h>
+#include "Array.c"
+#include "procedural_audio.c"
+#include "font_data.h"
+#include "algorithms/shuffle/StandardShuffle.c"
+#include "algorithms/sort/SelectionSort.c"
+
+/** How long the sound lasts when an array access is made */
+#define SOUND_SUSTAIN 0.05f
+/** What portion of the original color will remain 1 second after an array access */
+#define COLOR_SUSTAIN 1e-1
+
+/**
+ * @brief The delay to wait every time the sorting algorithm makes an array access (in milliseconds)
+ */
 float array_access_delay = 2.f;
 
 #ifndef _WIN32
@@ -85,7 +101,7 @@ size_t array_write_count = 0;
 
 void my_array_read_callback(Array array, size_t index)
 {
-    // TODO: make things work with external arrays
+    // matensach TODO: make things work with external arrays
 
     if (array == sort_array)
     {
@@ -97,7 +113,7 @@ void my_array_read_callback(Array array, size_t index)
 
 void my_array_write_callback(Array array, size_t index)
 {
-    // TODO: make things work with external arrays
+    // matensach TODO: make things work with external arrays
 
     if (array == sort_array)
     {
@@ -122,7 +138,7 @@ Color interpolate_colors(Color from, Color to, float t)
  */
 void draw_array(Array array, int width, int height, int x, int y)
 {
-    const Color RECTANGLE_COLORS[4] = {WHITE, BLUE, RED, MAGENTA};
+    const Color RECTANGLE_COLORS[4] = {WHITE, RED, BLUE, GREEN};
 
     float *reads = NULL;
     float *writes = NULL;
@@ -224,7 +240,7 @@ bool show_sort(Algorithm sort, size_t array_size, float delay, Algorithm shuffle
 void *sort_proc(void *args)
 {
     if (
-        !show_sort(SelectionSort, 300, 2.003f, StandardShuffle))
+        !show_sort(SelectionSort, 128, 2.003f, StandardShuffle))
     {
         TraceLog(LOG_ERROR, "Sorting Visualizer: algorithm returned false; stopped prematurely");
         return NULL;
@@ -253,7 +269,7 @@ int main()
 
     Array_set_at_callback(my_array_read_callback);
     Array_set_set_callback(my_array_write_callback);
-    sort_array = Array_new_init(256);
+    sort_array = Array_new_init(128);
 
     InitAudioDevice();
     initialize_procedural_audio();

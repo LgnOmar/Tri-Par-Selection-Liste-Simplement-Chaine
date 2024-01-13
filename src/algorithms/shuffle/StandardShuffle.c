@@ -12,7 +12,7 @@ static bool _kjfeefnje(Array array)
 
 /**
  * @brief Shuffles an `Array` using Raylib's random number function.
- *
+ * Cest juste random generator, using the Raylib random function.
  * @param array The `Array` to shuffle
  * @return Whether the operation was successful
  */
