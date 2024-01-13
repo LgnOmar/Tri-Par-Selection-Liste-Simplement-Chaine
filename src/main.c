@@ -8,23 +8,6 @@
 
 /** How long the sound lasts when an array access is made */
 #define SOUND_SUSTAIN 0.05f
-
-/** What portion of the original color will remain 1 second after an array access */
-#define COLOR_SUSTAIN 1e-20
-
-/**
- * @brief The delay to wait every time the sorting algorithm makes an array access (in milliseconds)
- */
-float array_access_delay = 2.f;#include "raylib.h"
-#include <pthread.h>
-#include "Array.c"
-#include "procedural_audio.c"
-#include "font_data.h"
-#include "algorithms/shuffle/StandardShuffle.c"
-#include "algorithms/sort/SelectionSort.c"
-
-/** How long the sound lasts when an array access is made */
-#define SOUND_SUSTAIN 0.05f
 /** What portion of the original color will remain 1 second after an array access */
 #define COLOR_SUSTAIN 1e-1
 
