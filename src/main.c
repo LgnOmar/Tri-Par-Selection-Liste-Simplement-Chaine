@@ -11,9 +11,7 @@
 /** What portion of the original color will remain 1 second after an array access */
 #define COLOR_SUSTAIN 1e-1
 
-/**
- * @brief The delay to wait every time the sorting algorithm makes an array access (in milliseconds)
- */
+//The delay to wait every time the sorting algorithm makes an array access (in milliseconds)
 float array_access_delay = 2.f;
 
 //number of arrays to display and sort!
@@ -38,13 +36,10 @@ void strcpy_s(char *restrict dest, size_t destsz, const char *restrict src)
 }
 #endif
 
-/**
- * @brief Used in the pause_for macro, which waits until clock() exceeds this value
- */
+//Used in the pause_for macro, which waits until clock() exceeds this value
 float pause;
-/**
- * @brief Intended to be used in a single thread and no other. Waits until `ms` milliseconds since the last pause_for call.
- */
+
+//Intended to be used in a single thread and no other. Waits until `ms` milliseconds since the last pause_for call.
 #define pause_for(ms)                    \
     pause += ms * CLOCKS_PER_SEC / 1000; \
     while (clock() < pause)              \
