@@ -15,6 +15,8 @@ We used the Sine function to generate audio frequencies and eventually producde 
 In the process of making this software we reffered to many resources such as GTP4, Bard, Various Github Repos:
     https://github.com/psycotica0/tone-generator            //This is a tone generator by the user "psycotica0" using SDL 
     https://gist.github.com/gcatlin/0dd61f19d40804173d015c01a80461b8   //This is another example with sample rate of 48000Hz [We used 41000]
+    https://panthema.net/2013/sound-of-sorting/  //better idea of the sound generator and how it is done
+    
     
     small detail: in the previous repos i found different documentation comments methods such as the one used in Doxygen documentation, please note that i did not delete the commands such as @brief, @param or @return .. etc for transparecy and just because it  facilitates easy generation of documentation if needed in the future, and it visually distinguishes commands from plain text, making comments easier to scan and understand.
 
