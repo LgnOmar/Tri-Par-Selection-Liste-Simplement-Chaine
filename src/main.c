@@ -45,9 +45,7 @@ float pause;
     while (clock() < pause)              \
         sched_yield();
 
-/**
- * @brief The `Array` that the sorting algorithms act on
- */
+//The `Array` that the sorting algorithms act on
 Array sort_array;
 
 pthread_mutex_t sort_array_read_lock = PTHREAD_ERRORCHECK_MUTEX_INITIALIZER;
@@ -165,15 +163,7 @@ void draw_array(Array array, int width, int height, int x, int y)
         MemFree(writes);
 }
 
-/**
- * @brief Demonstrates a sorting algorithm
- *
- * @param sort The algorithm to demonstrate
- * @param array_size The size of the `Array` to demonstrate the algorithm on
- * @param delay The delay between array accesses
- * @param shuffle The algorithm used to shuffle the `Array` before sorting
- * @return Whether the demonstration was successful
- */
+//Demonstrates a sorting algorithm..
 bool show_sort(Algorithm sort, size_t array_size, float delay, Algorithm shuffle)
 {
     status_text[255] = '\0';
@@ -216,10 +206,7 @@ bool show_sort(Algorithm sort, size_t array_size, float delay, Algorithm shuffle
     return true;
 }
 
-/**
- * @brief The procedure used to demonstrate all the sorting algorithms
- * NOTE: The arguments and return value are not used; they are only there because this function is called in a new thread
- */
+//NOTE: The arguments and return value are not used; they are only there because this function is called in a new thread
 void *sort_proc(void *args)
 {
     if (

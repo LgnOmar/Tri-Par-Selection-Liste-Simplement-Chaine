@@ -4,15 +4,15 @@
 #include <stdio.h>
 #include <string.h>
 
-/** @brief Allocate memory using the same memory allocator as the `Array` functions. */
+/* Allocate memory using the same memory allocator as the `Array` functions. */
 #define Array_mem_alloc MemAlloc
-/** @brief Reallocate memory using the same memory allocator as the `Array` functions. */
+/*  Reallocate memory using the same memory allocator as the `Array` functions. */
 #define Array_mem_realloc MemRealloc
-/** @brief Deallocate memory using the same memory allocator as the `Array` functions. */
+/*  Deallocate memory using the same memory allocator as the `Array` functions. */
 #define Array_mem_free MemFree
 
-/**
- * @brief Represents an array used in the sorting algorithm visualizer
+/*
+ *  Represents an array used in the sorting algorithm visualizer
  */
 typedef struct Array
 {
@@ -20,8 +20,8 @@ typedef struct Array
     size_t len;
 } * Array;
 
-/**
- * @brief Designates whether an index operation of an `Array` was successful.
+/*
+ *  Designates whether an index operation of an `Array` was successful.
  * `ARRAY_OK`: The operation was successful.
  * `ARRAY_ERR`: The operation was unsuccessful.
  */
@@ -31,8 +31,8 @@ typedef enum Array_ResultCondition
     ARRAY_ERR
 } Array_ResultCondition;
 
-/**
- * @brief Respresents the result of an `Array` index operation.
+/*
+ * Respresents the result of an `Array` index operation.
  * The `condition` property designates whether the operation was successful.
  * If `condition` is `ARRAY_OK`, `value` will contain the result of the operation.
  * If `condition` is `ARRAY_ERR`, `value` is redundant.
@@ -43,10 +43,7 @@ typedef struct Array_Result
     unsigned int value;
 } Array_Result;
 
-/**
- * @brief Similar to `Array_Result` but with a `bool` as the `value` property
- * @see Array_Result
- */
+//Similar to `Array_Result` but with a `bool` as the `value` property
 typedef struct Array_Result_Bool
 {
     Array_ResultCondition condition;
@@ -61,8 +58,8 @@ typedef struct Array_Result_Bool
     if (maybe_err.condition == ARRAY_ERR) \
         return false;
 
-/**
- * @brief Struct type representing a sorting algorithm.
+/*
+ * this Struct type representing a sorting algorithm.
  * `fun` is a function pointer which takes an `Array` and sorts it in place,
  * returning `false` if there were any abnormalities and `true` otherwise.
  * `name` is a null-terminated `const char *` holding the name of the sorting algorithm.
