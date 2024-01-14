@@ -6,9 +6,9 @@
 #include "algorithms/shuffle/StandardShuffle.c"
 #include "algorithms/sort/SelectionSort.c"
 
-/** How long the sound lasts when an array access is made */
+/* How long the sound lasts when an array access is made */
 #define SOUND_SUSTAIN 0.05f
-/** What portion of the original color will remain 1 second after an array access */
+/* What portion of the original color will remain 1 second after an array access */
 #define COLOR_SUSTAIN 1e-1
 
 //The delay to wait every time the sorting algorithm makes an array access (in milliseconds)
