@@ -16,6 +16,11 @@
  */
 float array_access_delay = 2.f;
 
+//number of arrays to display and sort!
+int array_nmb = 128;
+
+
+//If the macro _WIN32 is not defined (meaning we're not on a Windows platform), then include the code that follows up to the matching #endif directive.  on peut le supprimer mais what if you are running a macOS professor? idk could be helpful im just paranoid like that..
 #ifndef _WIN32
 void strcpy_s(char *restrict dest, size_t destsz, const char *restrict src)
 {
@@ -223,7 +228,7 @@ bool show_sort(Algorithm sort, size_t array_size, float delay, Algorithm shuffle
 void *sort_proc(void *args)
 {
     if (
-        !show_sort(SelectionSort, 128, 2.003f, StandardShuffle))
+        !show_sort(SelectionSort, array_nmb, 2.003f, StandardShuffle))
     {
         TraceLog(LOG_ERROR, "Sorting Visualizer: algorithm returned false; stopped prematurely");
         return NULL;
@@ -252,7 +257,7 @@ int main()
 
     Array_set_at_callback(my_array_read_callback);
     Array_set_set_callback(my_array_write_callback);
-    sort_array = Array_new_init(128);
+    sort_array = Array_new_init(array_nmb);
 
     InitAudioDevice();
     initialize_procedural_audio();
