@@ -39,6 +39,9 @@ void strcpy_s(char *restrict dest, size_t destsz, const char *restrict src)
 //Used in the pause_for macro, which waits until clock() exceeds this value
 float pause;
 
+
+
+
 //Intended to be used in a single thread and no other. Waits until `ms` milliseconds since the last pause_for call.
 #define pause_for(ms)                    \
     pause += ms * CLOCKS_PER_SEC / 1000; \
